@@ -1,15 +1,15 @@
 package com.nratnovsky.hqs.ui.views;
 
-import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.notification.Notification;
-import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.nratnovsky.hqs.ui.MainLayout;
+import com.vaadin.flow.component.html.H1;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.router.Route;
 
-@Route
-public class MainView extends VerticalLayout {
+@Route(layout = MainLayout.class)
+public class MainView extends HorizontalLayout {
+
 
     public MainView() {
-        add(new Button("Click me", e -> Notification.show("Hello, Spring+Vaadin user!")));
+        add(new H1("Headquarters System"));
     }
-
 }

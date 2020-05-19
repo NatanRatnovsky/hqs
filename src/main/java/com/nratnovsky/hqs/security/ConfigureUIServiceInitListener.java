@@ -1,6 +1,6 @@
 package com.nratnovsky.hqs.security;
 
-import com.nratnovsky.hqs.ui.views.LoginView;
+import com.nratnovsky.hqs.ui.views.login.LoginView;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.router.BeforeEnterEvent;
 import com.vaadin.flow.server.ServiceInitEvent;

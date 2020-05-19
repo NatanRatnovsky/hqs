@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
+import java.util.List;
+
 @Service
 public class SolderService {
 
@@ -33,12 +35,8 @@ public class SolderService {
 
     }
 
-    public void findAll(Model model) {
-        if (solderRepo.findAll().isEmpty()) {
-            model.addAttribute("message", "אין חיילים במערכת");
-        } else {
-            returnSolderUnitCompany(model);
-        }
+    public List<Solder>findAll() {
+       return solderRepo.findAll();
     }
 
     public void addSolder(User user, String solderId, String firstName, String lastName,
