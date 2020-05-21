@@ -5,8 +5,8 @@ body {
 
 /* Main Layout */
 a[highlight] {
+    font-family: SegoeUI, "Roboto Thin", serif;
     font-weight: bold;
-    text-decoration: underline;
 }
 .header {
     padding: 0 var(--lumo-space-m);
@@ -15,7 +15,9 @@ a[highlight] {
     font-size: 1em;
     margin: var(--lumo-space-m);
 }
-
+.logout-key {
+    font-family: SegoeUI, "Roboto Thin", serif;
+}
 /* Main View */
 .main-h1-logo {
     margin: auto;

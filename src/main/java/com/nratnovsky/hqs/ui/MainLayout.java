@@ -33,13 +33,14 @@ public class MainLayout extends AppLayout {
         H1 logo = new H1("HQS");
         logo.addClassName("logo");
 
-        Anchor logout = new Anchor("logout", "יציאה");
+        Anchor logout = new Anchor("logout", "להתנתק");
 
         HorizontalLayout header = new HorizontalLayout(new DrawerToggle(), logo,logout);
         header.addClassName("header");
         header.setWidth("100%");
         header.setDefaultVerticalComponentAlignment(FlexComponent.Alignment.CENTER);
         header.expand(logo);
+        logout.setClassName("logout-key");
         addToNavbar(header);
     }
 }

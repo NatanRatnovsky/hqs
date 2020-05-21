@@ -32,7 +32,7 @@ public class UserEdit extends VerticalLayout implements KeyNotifier{
 
     private User user;
     private TextField username = new TextField("מספר אישי");
-    private PasswordField password = new PasswordField("סיסמה");
+    private PasswordField password = new PasswordField("ליצור סיסמה");
     private CheckboxGroup<Role> roleCheckboxGroup = new CheckboxGroup<>();
 
 
