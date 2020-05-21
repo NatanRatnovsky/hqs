@@ -14,5 +14,9 @@ a[highlight] {
 .header h1.logo {
     font-size: 1em;
     margin: var(--lumo-space-m);
+}
 
+/* Main View */
+.main-h1-logo {
+    margin: auto;
 }

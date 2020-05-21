@@ -56,16 +56,7 @@ public class UserService implements UserDetailsService {
         return userRepo.findAll();
     }
 
-    public void saveUser(String username, Map<String, String> form, User user) {
-        user.setUsername(username);
-        Set<String> roles = Arrays.stream(Role.values()).map(Role::name).collect(Collectors.toSet());
-
-        user.getRoles().clear();
-        for (String key : form.keySet()) {
-            if (roles.contains(key)) {
-                user.getRoles().add(Role.valueOf(key));
-            }
-        }
+    public void saveUser(User user) {
         userRepo.save(user);
     }
 
@@ -91,15 +82,15 @@ public class UserService implements UserDetailsService {
 
     }
 
-    public Map<String, Object> deleteUser(User user, Map<String, Object> model) {
-        if (user != null && userRepo.findById(user.getId()).isPresent()) {
-            userRepo.delete(user);
-            model.put("message", "User deleted");
-            model.put("users", userRepo.findAll());
-            return model;
-        }
-        model.put("message", "User not founded!");
-        model.put("users", userRepo.findAll());
-        return model;
+    public void deleteUser(User user) {
+        userRepo.delete(user);
+    }
+
+    public List<User> findByUsername(String username) {
+        return userRepo.findByUsernameStartsWith(username);
+    }
+
+    public Optional<User> findById(Long id) {
+        return userRepo.findById(id);
     }
 }

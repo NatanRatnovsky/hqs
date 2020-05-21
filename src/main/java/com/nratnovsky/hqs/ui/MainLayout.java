@@ -1,6 +1,6 @@
 package com.nratnovsky.hqs.ui;
 
-import com.nratnovsky.hqs.ui.views.parts.TestView;
+import com.nratnovsky.hqs.ui.views.components.user.UserView;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
 import com.vaadin.flow.component.dependency.CssImport;
@@ -22,7 +22,7 @@ public class MainLayout extends AppLayout {
     }
 
     private void createDrawer() {
-        RouterLink listLink = new RouterLink("רשימת משתמשים", TestView.class);
+        RouterLink listLink = new RouterLink("רשימת משתמשים", UserView.class);
         listLink.setHighlightCondition(HighlightConditions.sameLocation());
         addToDrawer(new VerticalLayout(
                 listLink

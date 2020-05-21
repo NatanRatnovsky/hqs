@@ -10,6 +10,8 @@ public class MainView extends HorizontalLayout {
 
 
     public MainView() {
-        add(new H1("Headquarters System"));
+        H1 logoText = new H1("Headquarters System");
+        logoText.addClassName("main-h1-logo");
+        add(logoText);
     }
 }
