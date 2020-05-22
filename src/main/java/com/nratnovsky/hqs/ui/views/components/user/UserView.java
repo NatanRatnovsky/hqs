@@ -42,6 +42,7 @@ public class UserView extends VerticalLayout {
         // Replace listing with filtered content when user changes filter
         filter.setValueChangeMode(ValueChangeMode.EAGER);
         filter.addValueChangeListener(e -> updateList(e.getValue()));
+        filter.getStyle().set("margi-right", "10px");
 
         // Connect selected Customer to editor or hide if none is selected
         grid.asSingleSelect().addValueChangeListener(e -> editor.editUser(e.getValue()));

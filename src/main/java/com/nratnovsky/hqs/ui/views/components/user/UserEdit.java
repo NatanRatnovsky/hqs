@@ -70,7 +70,7 @@ public class UserEdit extends VerticalLayout implements KeyNotifier{
 
         save.addClickListener(e -> save());
         delete.addClickListener(e -> delete());
-        cancel.addClickListener(e -> editUser(user));
+        cancel.addClickListener(e -> setVisible(false));
         setVisible(false);
 
 
