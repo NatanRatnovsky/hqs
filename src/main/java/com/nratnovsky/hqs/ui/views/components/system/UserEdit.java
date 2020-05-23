@@ -1,4 +1,4 @@
-package com.nratnovsky.hqs.ui.views.components.user;
+package com.nratnovsky.hqs.ui.views.components.system;
 
 import com.nratnovsky.hqs.models.User;
 import com.nratnovsky.hqs.models.enums.Role;

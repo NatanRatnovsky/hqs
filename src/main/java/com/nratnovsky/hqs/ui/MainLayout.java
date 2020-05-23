@@ -1,14 +1,13 @@
 package com.nratnovsky.hqs.ui;
 
 import com.nratnovsky.hqs.ui.views.MainView;
-import com.nratnovsky.hqs.ui.views.components.user.UserView;
+import com.nratnovsky.hqs.ui.views.components.hr.SolderView;
+import com.nratnovsky.hqs.ui.views.components.system.UserView;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.HasComponents;
 import com.vaadin.flow.component.applayout.AppLayout;
-import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.html.Anchor;
-import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
@@ -17,7 +16,6 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.tabs.Tab;
 import com.vaadin.flow.component.tabs.TabVariant;
 import com.vaadin.flow.component.tabs.Tabs;
-import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.RouterLink;
 import com.vaadin.flow.server.VaadinServlet;
 import org.springframework.security.core.Authentication;
@@ -91,9 +89,9 @@ public class MainLayout extends AppLayout {
 
     private static Tab[] getAvailableTabs() {
         final List<Tab> tabs = new ArrayList<>(5);
-        tabs.add(createTab(VaadinIcon.HOME, "ראשית", MainView.class));
+        tabs.add(createTab(VaadinIcon.HOME, "ראשי", MainView.class));
         tabs.add(createTab(VaadinIcon.CLIPBOARD_USER, "שלישות",
-                UserView.class));
+                SolderView.class));
         tabs.add(createTab(VaadinIcon.ROCKET, "נשקיה",
                 UserView.class));
         tabs.add(createTab(VaadinIcon.COG_O, "מערכת",
