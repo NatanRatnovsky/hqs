@@ -6,6 +6,7 @@ import com.nratnovsky.hqs.services.UserService;
 import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.KeyNotifier;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.checkbox.Checkbox;
 import com.vaadin.flow.component.checkbox.CheckboxGroup;
 import com.vaadin.flow.component.checkbox.CheckboxGroupVariant;
 import com.vaadin.flow.component.icon.VaadinIcon;
@@ -34,6 +35,7 @@ public class UserEdit extends VerticalLayout implements KeyNotifier{
     private TextField username = new TextField("מספר אישי");
     private PasswordField password = new PasswordField("ליצור סיסמה");
     private CheckboxGroup<Role> roleCheckboxGroup = new CheckboxGroup<>();
+    private Checkbox active = new Checkbox();
 
 
     private final Button save = new Button("Save", VaadinIcon.CHECK.create());
@@ -57,7 +59,8 @@ public class UserEdit extends VerticalLayout implements KeyNotifier{
         roleCheckboxGroup.setDataProvider(new ListDataProvider<>(Arrays.asList(Role.values())));
         roleCheckboxGroup.addThemeVariants(CheckboxGroupVariant.LUMO_VERTICAL);
         binder.bind(roleCheckboxGroup, "roles");
-        add(username, password,roleCheckboxGroup, actions);
+        active.setLabel("משתמש פעיל ?");
+        add(username, password,roleCheckboxGroup, active, actions);
 
         binder.bindInstanceFields(this);
 

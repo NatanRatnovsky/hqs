@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -18,7 +19,7 @@ public class SystemLogger {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    private Date date;
+    private LocalDateTime date;
 
     private String userName;
 
@@ -28,7 +29,7 @@ public class SystemLogger {
     @Column(length = 510)
     private String message;
 
-    public SystemLogger(Date date, String userName,  LogType logType,String message) {
+    public SystemLogger(LocalDateTime date, String userName,  LogType logType,String message) {
         this.date = date;
         this.userName = userName;
         this.logType = logType;

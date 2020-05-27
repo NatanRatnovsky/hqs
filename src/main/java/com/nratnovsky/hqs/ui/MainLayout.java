@@ -8,6 +8,7 @@ import com.vaadin.flow.component.HasComponents;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.html.Anchor;
+import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
@@ -32,6 +33,7 @@ public class MainLayout extends AppLayout {
     private final Tabs menu ;
     private final HorizontalLayout layout = new HorizontalLayout();
     private final Span authUser = new Span();
+    private final Div userDiv = new Div();
 
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
     String currentPrincipalName = authentication.getName();
@@ -41,10 +43,11 @@ public class MainLayout extends AppLayout {
         menu = createMenuTabs();
 
         this.addToNavbar(true, menu);
-
-        layout.setHeight("100px");
+        userDiv.setClassName("user-div");
+        layout.setHeight("80px");
         layout.getStyle().set("flex-grow", "1");
         layout.setSpacing(false);
+        layout.add(userDiv);
         authUser();
     }
 
@@ -109,9 +112,6 @@ public class MainLayout extends AppLayout {
         a.setHref(contextPath + "/logout");
         return a;
     }
-
-
-
 
 
 }

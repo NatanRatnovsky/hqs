@@ -24,3 +24,12 @@ a{
 .main-h1-logo {
     margin: auto;
 }
+
+.user-div {
+    margin-left: 0;
+}
+
+/* User View*/
+.user-view-filter {
+    margin-right: 20px;
+}
