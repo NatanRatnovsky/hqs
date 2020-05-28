@@ -3,9 +3,11 @@ package com.nratnovsky.hqs.ui.views.components.system;
 import com.nratnovsky.hqs.models.User;
 import com.nratnovsky.hqs.services.UserService;
 import com.nratnovsky.hqs.ui.MainLayout;
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.checkbox.Checkbox;
 import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.html.Anchor;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
@@ -23,7 +25,7 @@ public class UserView extends VerticalLayout {
 
     private Grid<User> grid = new Grid<>(User.class);
 
-    private final TextField filter = new TextField("","סינון לפי מ.א.");
+    private final TextField filter = new TextField("", "סינון לפי מ.א.");
 
     private final Button addNewBtn = new Button("להוסיף משתמש");
 
@@ -42,7 +44,10 @@ public class UserView extends VerticalLayout {
         setSizeFull();
         configureGrid();
 
-        add(toolbar,editor,grid);
+        add(logButton, toolbar, editor, grid);
+
+        logButton.setText("פעילות במערכת");
+        logButton.addClickListener(e -> UI.getCurrent().navigate(LogView.class));
 
         // Replace listing with filtered content when user changes filter
         filter.setValueChangeMode(ValueChangeMode.EAGER);
@@ -56,7 +61,7 @@ public class UserView extends VerticalLayout {
         addNewBtn.addClickListener(e -> editor.editUser(new User()));
 
         // Listen changes made by the editor, refresh data from backend
-        editor.setChangeHandler(() ->{
+        editor.setChangeHandler(() -> {
             editor.setVisible(false);
             updateList(filter.getValue());
         });

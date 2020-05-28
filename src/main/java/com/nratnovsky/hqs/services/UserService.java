@@ -27,8 +27,7 @@ public class UserService implements UserDetailsService {
     @Autowired
     private SystemLoggerRepo loggerRepo;
 
-    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-    String currentPrincipalName = authentication.getName();
+
 
     public UserService(UserRepo userRepo) {
         this.userRepo = userRepo;
@@ -39,23 +38,28 @@ public class UserService implements UserDetailsService {
         return userRepo.findByUsername(username);
     }
 
+    private String authUser () {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return  authentication.getName();
+    }
+
     public boolean addUser(User user) {
         User userFromDb = userRepo.findByUsername(user.getUsername());
 
         if (userFromDb != null) {
             loggerRepo.save(new SystemLogger(LocalDateTime.now(),
-                    currentPrincipalName, LogType.HR, "ניסה להסיף משתמש שקיים במערכת"));
+                    authUser(), LogType.HR, "ניסה להסיף משתמש שקיים במערכת"));
             return false;
         }
         user.setActive(true);
         user.setRoles(Collections.singleton(Role.USER));
         if (userRepo.findAll().isEmpty()) {
             loggerRepo.save(new SystemLogger(LocalDateTime.now(),
-                    currentPrincipalName, LogType.HR, "הוסף מנהל של מערכת"));
+                    authUser(), LogType.HR, "הוסף מנהל של מערכת"));
             user.setRoles(Collections.singleton(Role.ADMIN));
         }
         loggerRepo.save(new SystemLogger(LocalDateTime.now(),
-                currentPrincipalName, LogType.HR, "הוסף משתמש חדש"));
+                authUser(), LogType.HR, "הוסף משתמש חדש"));
         userRepo.save(user);
 
         return true;
@@ -63,14 +67,25 @@ public class UserService implements UserDetailsService {
 
     public List<User> findAll() {
         loggerRepo.save(new SystemLogger(LocalDateTime.now(),
-                currentPrincipalName, LogType.HR, "קיבל רשימת משתמשים"));
+                authUser(), LogType.HR, "קיבל רשימת משתמשים"));
         return userRepo.findAll();
     }
 
     public void saveUser(User user) {
-        userRepo.save(user);
-        loggerRepo.save(new SystemLogger(LocalDateTime.now(),
-                currentPrincipalName, LogType.HR, "שינתה משתמש " + user.getUsername()));
+        User userFromDb = userRepo.findByUsername(user.getUsername());
+        if (user.getId() == null) {
+            if (userFromDb == null) {
+                userRepo.save(user);
+                loggerRepo.save(new SystemLogger(LocalDateTime.now(),
+                        authUser(), LogType.HR, "שינתה משתמש " + user.getUsername()));
+            } else {
+                loggerRepo.save(new SystemLogger(LocalDateTime.now(),
+                        authUser(), LogType.HR, "ניסה להוסיף משתמש קיים " + user.getUsername()));
+                return;
+            }
+            addUser(user);
+        }
+
     }
 
 
@@ -78,12 +93,12 @@ public class UserService implements UserDetailsService {
     public void deleteUser(User user) {
         userRepo.delete(user);
         loggerRepo.save(new SystemLogger(LocalDateTime.now(),
-                currentPrincipalName, LogType.HR, "נמחק משתמש " + user.getUsername()));
+                authUser(), LogType.HR, "נמחק משתמש " + user.getUsername()));
     }
 
     public List<User> findByUsername(String username) {
         loggerRepo.save(new SystemLogger(LocalDateTime.now(),
-                currentPrincipalName, LogType.HR, "היה חיפוס לפי מספר אישי " + username));
+                authUser(), LogType.HR, "היה חיפוס לפי מספר אישי " + username));
         return userRepo.findByUsernameStartsWith(username);
     }
 
