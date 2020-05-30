@@ -6,7 +6,7 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
 
-@Route(value = "addSolder", layout = MainLayout.class)
+@Route(value = "addSolder", layout = SolderView.class, absolute = true)
 public class AddSolderView extends VerticalLayout {
     private final HorizontalLayout layout;
     private final Div div = new Div();

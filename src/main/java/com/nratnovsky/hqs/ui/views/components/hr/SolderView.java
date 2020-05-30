@@ -1,97 +1,38 @@
 package com.nratnovsky.hqs.ui.views.components.hr;
 
 import com.nratnovsky.hqs.ui.MainLayout;
-import com.vaadin.flow.component.Component;
-import com.vaadin.flow.component.HasComponents;
+import com.vaadin.flow.component.Composite;
+import com.vaadin.flow.component.HasElement;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.component.tabs.Tab;
-import com.vaadin.flow.component.tabs.TabVariant;
-import com.vaadin.flow.component.tabs.Tabs;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.router.RouterLayout;
 import com.vaadin.flow.router.RouterLink;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Objects;
 
 
 @Route(value = "solderView", layout = MainLayout.class)
-public class SolderView extends VerticalLayout {
+public class SolderView extends Composite<Div> implements RouterLayout {
 
-    private final HorizontalLayout layout;
-    private Div navigation;
-    private Div content;
-    private final Tabs menu;
+    private final Div content = new Div();
+
+    private final VerticalLayout menuBar = new VerticalLayout(
+            new RouterLink("להוסיף חייל", AddSolderView.class)
+    );
+
+    private final HorizontalLayout root = new HorizontalLayout(menuBar, content);
 
     public SolderView() {
-        setPadding(false);
-        setSpacing(false);
-        setSizeFull();
-        setDefaultHorizontalComponentAlignment(Alignment.STRETCH);
-        menu = createMenuTabs();
-
-
-        layout = new HorizontalLayout();
-        layout.setHeight("100px");
-        layout.getStyle().set("flex-grow", "1");
-        layout.setSpacing(false);
-        createTextLayout();
-
-        add(layout);
-        this.navigation.add(menu);
+        getContent().add(root);
     }
 
-    private Tabs createMenuTabs() {
-        final Tabs tabs = new Tabs();
-        tabs.setOrientation(Tabs.Orientation.VERTICAL);
-        tabs.add(getAvailableTabs());
-        return tabs;
+    @Override
+    public void showRouterLayoutContent(HasElement hasElement) {
+        Objects.requireNonNull(hasElement);
+        Objects.requireNonNull(hasElement.getElement());
+        content.removeAll();
+        content.getElement().appendChild(hasElement.getElement());
     }
-
-    private static Tab createTab(Component content) {
-        final Tab tab = new Tab();
-        tab.addThemeVariants(TabVariant.LUMO_ICON_ON_TOP);
-        tab.add(content);
-        return tab;
-    }
-
-    private void createTextLayout() {
-        navigation = new Div();
-        navigation.setClassName("navigation");
-        navigation.setWidth("16em");
-        navigation.getElement().getStyle().set("flex-shrink", "0");
-
-
-        content = new Div();
-        content.setHeightFull();
-        content.getStyle().set("display", "flex");
-        content.setText("This is the content area");
-        content.setClassName("content");
-        content.getStyle().set("alignContent", "start");
-
-        layout.add(navigation, content);
-        layout.expand(content);
-        layout.setDefaultVerticalComponentAlignment(Alignment.STRETCH);
-    }
-
-
-    private static Tab createTab(String title, Class<? extends Component> viewClass) {
-        return createTab(populateLink(new RouterLink(null, viewClass), title));
-    }
-
-    private static <T extends HasComponents> T populateLink(T a, String title) {
-        a.add(title);
-        return a;
-    }
-
-
-    private Tab[] getAvailableTabs() {
-        final List<Tab> tabs = new ArrayList<>(1);
-        tabs.add(createTab("add solder", AddSolderView.class));
-
-        return tabs.toArray(new Tab[tabs.size()]);
-    }
-
-
 }
